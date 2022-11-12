@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+  redis:
+    image: redis:7.0.4
+    container_name: redis
+    ports:
+      - 6379:6379
+    command: '--requirepass password'
+    volumes:
+      - redis:/data
+
+volumes:
+  mongodata:
+  redis:
