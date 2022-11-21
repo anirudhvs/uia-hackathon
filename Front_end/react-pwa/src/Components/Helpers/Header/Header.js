@@ -17,6 +17,7 @@ import { useDisclosure } from "@mantine/hooks";
 import image  from "../../../Images/Privacy policy-rafiki.svg";
 import { Link } from "react-router-dom";
 import { AuthenticationForm } from "../LoginPage/loginPage";
+import  { ImageComp }  from "../../../Components/Home/ImageComp"
 // import { AuthenticationTitle } from "../Login/Login";
 const HEADER_HEIGHT = 60;
 
@@ -162,7 +163,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
     <Header height={HEADER_HEIGHT} mb={12} className={classes.root}>
       <Container className={classes.header}>
         <Title order={1} c="#1c7ed6">
-          AppName
+          DigiPartogram
         </Title>
         <Group spacing={5} className={classes.links}>
           {items}
@@ -203,6 +204,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
         </Modal>
         <Button onClick={() => setOpen(true)}>Login</Button>
       </Container>
+      <ImageComp/>
     </Header>
   );
 }

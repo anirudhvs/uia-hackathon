@@ -6,22 +6,27 @@ import {
     Text,
     Paper,
     Group,
-    PaperProps,
     Button,
     Divider,
     Checkbox,
     Anchor,
     Stack,
   } from '@mantine/core';
+import { backend_url } from '../../../config';
+import axios from 'axios';
+import {showNotification} from '@mantine/notifications';
   // import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
+
   
-  export function AuthenticationForm(props: PaperProps) {
+  export function AuthenticationForm(props) {
     const [type, toggle] = useToggle(['login', 'register']);
     const form = useForm({
       initialValues: {
         email: '',
+        userType:'',
         name: '',
         password: '',
+        hospitalName:'',
         terms: true,
       },
   
@@ -42,9 +47,42 @@ import {
           <TwitterButton radius="xl">Twitter</TwitterButton>
         </Group> */}
   
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
+        <Divider labelPosition="center" my="lg" />
   
-        <form onSubmit={form.onSubmit(() => {})}>
+        <form onSubmit={form.onSubmit(() => {
+              console.log(form.values)
+              if(type === 'register') {
+                axios.post(
+                  `${backend_url}/auth/register`,
+                  {
+                    username: form.values.name,
+                    password: form.values.password,
+                    email: form.values.email,
+                    userType: form.values.userType,
+                    hospitalName: form.values.hospitalName
+                  },
+                  {
+                    withCredentials: true
+                  }
+                ).then(
+                  (response) => {
+                    // console.log(response.data)
+                    showNotification(
+                      {color: 'green',
+                      message: response.data.message}
+                    )
+                  }
+                ).catch((err)=> {
+                  // console.log(err)
+                  
+                  showNotification({
+                    message: err.response.data.message,
+                    color:'red'})
+                  
+                 })
+              }
+
+        })}>
           <Stack>
             {type === 'register' && (
               <TextInput
@@ -71,6 +109,24 @@ import {
               value={form.values.password}
               onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
               error={form.errors.password && 'Password should include at least 6 characters'}
+            />
+
+              <TextInput
+              required
+              label="User Type"
+              placeholder="Enter Nurse/Doctor"
+              value={form.values.userType}
+              onChange={(event) => form.setFieldValue('userType', event.currentTarget.value)}
+              // error={form.errors.email && 'Invalid email'}
+            />
+
+              <TextInput
+              required
+              label="Hospital Name"
+              placeholder="Enter Name"
+              value={form.values.hospitalName}
+              onChange={(event) => form.setFieldValue('hospitalName', event.currentTarget.value)}
+              // error={form.errors.email && 'Invalid email'}
             />
   
             {type === 'register' && (
