@@ -9,6 +9,7 @@ router.post('/register', async (req, res) => {
   const {
     username, password, email, userType, hospitalName,
   } = req.body;
+  console.log("pass",password)
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -16,6 +17,7 @@ router.post('/register', async (req, res) => {
     } else {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
+      // console.log("passowrd", password)
 
       const newUser = new User({
         username,
