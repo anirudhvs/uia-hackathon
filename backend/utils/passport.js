@@ -33,7 +33,14 @@ module.exports = function (passport) {
     try {
       const user = await User.findOne({ email });
       if (user) {
-        done(null, { email: user.email, username: user.username, userType: user.userType });
+        done(null, {
+          // eslint-disable-next-line no-underscore-dangle
+          email: user.email,
+          username: user.username,
+          userType: user.userType,
+          // eslint-disable-next-line no-underscore-dangle
+          _id: user._id.toString(),
+        });
       }
     } catch (err) {
       console.log(err);

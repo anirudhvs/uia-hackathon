@@ -35,10 +35,86 @@ const patientSchema = new mongoose.Schema(
     membraneRuptureTime: {
       type: Date,
     },
+    height: {
+      type: Number,
+    },
     personResponsible: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    foetalHeartRate: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    liquor: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    moulding: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    cervix: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    descent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    contraction: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    pulse: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    bp: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    temperature: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Measurement',
+    },
+    ],
+    urine: [{
+      volume: {
+        type: Number,
+      },
+      albumin: {
+        type: Number,
+      },
+      glucose: {
+        type: Number,
+      },
+      actetone: {
+        type: Number,
+      },
+      vomitus: {
+        type: Boolean,
+      },
+      recordedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    }],
   },
 );
 patientSchema.plugin(AutoIncrement, { inc_field: 'patientId' });

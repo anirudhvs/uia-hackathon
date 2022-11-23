@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
   const {
     username, password, email, userType, hospitalName,
   } = req.body;
-  console.log("pass",password)
+  console.log('pass', password);
   try {
     const user = await User.findOne({ email });
     if (user) {

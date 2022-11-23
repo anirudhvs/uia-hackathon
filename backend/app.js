@@ -11,6 +11,7 @@ const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const passport = require('passport');
 const redisClient = require('./utils/redis');
+const { sendMessage } = require('./utils/sms');
 
 // Routes
 const checkAuth = require('./utils/checkAuth');
@@ -58,10 +59,16 @@ require('./utils/passport')(passport);
 app.use('/auth', authRouter);
 app.use('/patient', checkAuth, patientRouter);
 
-app.use('/', viewsRouter);
-
 app.get('/status', (req, res) => {
   res.send('OK');
 });
+
+app.get('/sendsms', (req, res) => {
+  const { message, receiver } = req.body;
+  sendMessage(message, receiver);
+  res.send({ message: 'SMS sent' });
+});
+
+app.use('/', viewsRouter);
 
 module.exports = app;

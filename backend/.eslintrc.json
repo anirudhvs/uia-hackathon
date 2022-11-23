@@ -13,6 +13,6 @@
         "no-console": "off",
         "new-cap": "off",
         "consistent-return": "off",
-        "linebreak-style": "off",
+        "linebreak-style": "off"
     }
 }

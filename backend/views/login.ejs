@@ -111,7 +111,7 @@
             }
             console.log(data)
             axios.post('/auth/login', data).then((result) => {
-                console.log("login scuess")
+                console.log("login success")
             }).catch((err) => {
                 console.log("Err", err.response.data.message)
                 alert("Invalid username/password")

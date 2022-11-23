@@ -9,12 +9,16 @@ const measurementSchema = new mongoose.Schema(
     timestamp: {
       type: Date,
       required: true,
+      default: Date.now,
     },
     value: {
-      type: Number,
+      type: String,
       required: true,
     },
-
+    recordedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
 );
 

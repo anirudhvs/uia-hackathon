@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 // const { Point } = require('@influxdata/influxdb-client');
 const Patient = require('../models/Patient');
+const Measurement = require('../models/Measurement');
+const { validateNewPatient, validatePatient } = require('./validations');
 // const influxDB = require('../utils/influxdb');
 
 router.post('/add', async (req, res) => {
@@ -18,7 +20,24 @@ router.post('/add', async (req, res) => {
     riskFactors,
     contractionStartTime,
     membraneRuptureTime,
+    height,
   } = req.body;
+  console.log(req.body);
+  const data = req.body;
+  // Validate the entered values
+  if (!name || !age || !parity || !alive || !edd || !sb || !nnd || !riskFactors
+    || !contractionStartTime || !membraneRuptureTime || !height) {
+    res.status(400).json({ message: 'Please enter all fields' });
+    // res.render('addPatient', { data,  });
+    return;
+  }
+
+  const errors = validateNewPatient(req);
+  if (errors.length > 0) {
+    // res.status(400).json({ message: errors });
+    res.render('addPatient', { data, errors });
+    return;
+  }
   //   Create new patient
   try {
     const newPatient = new Patient({
@@ -32,12 +51,15 @@ router.post('/add', async (req, res) => {
       riskFactors,
       contractionStartTime,
       membraneRuptureTime,
+      height,
+      personResponsible: req.user._id,
     });
     await newPatient.save();
-    res.status(201).json({
-      message: 'Patient created',
-      patient: newPatient,
-    });
+    // res.status(201).json({
+    //   message: 'Patient created',
+    //   patient: newPatient.populate('foetalHeartRate'),
+    // });
+    res.redirect('/doctorDashboard');
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: 'Error creating patient' });
@@ -50,6 +72,60 @@ router.get('/list', async (req, res) => {
     res.json(patients);
   } catch (err) {
     res.status(500).json({ message: 'Error getting patients' });
+  }
+});
+
+router.post('/addmeasurement', async (req, res) => {
+  const { measurementName, value, patientId } = req.body;
+  if (!measurementName || (!value && measurementName !== 'urine')) {
+    res.status(400).json({ message: 'Please enter all fields' });
+    return;
+  }
+
+  const allowedMeasurements = [
+    'foetalHeartRate',
+    'liquor',
+    'moulding',
+    'cervix',
+    'descent',
+    'contraction',
+    'pulse',
+    'bp',
+    'urine',
+  ];
+
+  if (!allowedMeasurements.includes(measurementName)) {
+    res.status(400).json({ message: 'Invalid measurement name' });
+    return;
+  }
+  try {
+    const patient = await Patient.findById(patientId);
+    if (measurementName === 'urine') {
+      const {
+        volume, albumin, glucose, acetone, voimitus,
+      } = req.body;
+      patient.urine.push({
+        volume, albumin, glucose, acetone, voimitus, recordedBy: req.user._id,
+      });
+    } else {
+      console.log(measurementName, value, req.user._id);
+      const measurement = new Measurement({
+        measurementName,
+        value,
+        recordedBy: req.user._id,
+      });
+      await measurement.save();
+      patient[measurementName].push(measurement._id);
+    }
+
+    await patient.save();
+    res.status(201).json({
+      message: 'Measurement added',
+      patient,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Error adding measurement' });
   }
 });
 
@@ -109,5 +185,17 @@ router.get('/list', async (req, res) => {
 //     res.status(500).json({ message: 'Error getting patient' });
 //   }
 // });
+
+router.get('/:id', async (req, res) => {
+  try {
+    // const patient = await Patient.findById(req.params.id).populate('personResponsible liquor');
+    validatePatient(req.params.id);
+    // res.json(patient);
+    res.send('ok');
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Error getting patient' });
+  }
+});
 
 module.exports = router;
