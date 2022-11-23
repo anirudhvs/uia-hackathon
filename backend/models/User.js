@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
     },
     password: {
       type: String,
@@ -17,6 +16,10 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     userType: {
+      type: String,
+      required: true,
+    },
+    hospitalName: {
       type: String,
       required: true,
     },

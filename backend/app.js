@@ -42,6 +42,9 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -53,5 +56,9 @@ require('./utils/passport')(passport);
 
 app.use('/auth', authRouter);
 app.use('/patient', checkAuth, patientRouter);
+
+app.get('/status', (req, res) => {
+  res.send('OK');
+});
 
 module.exports = app;
