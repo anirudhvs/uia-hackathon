@@ -23,3 +23,19 @@ router.get('/register', (req, res)=> {
 module.exports = router;
 
 
+router.get('/addPatient', (req, res)=> {
+  res.render('addPatient')
+})
+
+
+router.get('/form', (req, res)=> {
+  res.render('form')
+})
+
+
+
+module.exports = router;
+
+
+
+
