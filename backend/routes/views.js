@@ -32,6 +32,11 @@ router.get('/form', (req, res)=> {
   res.render('form')
 })
 
+router.get('/language', (req, res)=> {
+  res.render('language')
+})
+
+
 
 
 module.exports = router;
