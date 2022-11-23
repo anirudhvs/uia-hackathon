@@ -50,6 +50,7 @@ import {showNotification} from '@mantine/notifications';
         <Divider labelPosition="center" my="lg" />
   
         <form onSubmit={form.onSubmit(() => {
+<<<<<<< Updated upstream
               console.log(form.values)
               if(type === 'register') {
                 axios.post(
@@ -82,6 +83,9 @@ import {showNotification} from '@mantine/notifications';
                  })
               }
 
+=======
+          console.log(form.values);
+>>>>>>> Stashed changes
         })}>
           <Stack>
             {type === 'register' && (
