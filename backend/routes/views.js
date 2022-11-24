@@ -52,8 +52,12 @@ router.get('/digi-alert', (req, res) => {
   res.render('digi-alert', { data: {} });
 });
 
-router.get('/graph', (req, res)=>{
-  res.render('graph')
-})
+router.get('/graph', (req, res) => {
+  res.render('graph');
+});
+
+router.get('/index2', (req, res) => {
+  res.render('index2');
+});
 
 module.exports = router;
