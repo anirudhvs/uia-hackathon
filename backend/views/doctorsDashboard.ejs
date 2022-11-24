@@ -14,7 +14,14 @@
         href="public/static/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="public/static/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <style>
+        .tab{
+            font-size: 150%;
+            font-weight: bold;
+            /*font-family: Arial, Helvetica, sans-serif;
+            color: #000;*/
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -219,7 +226,9 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total Patients</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <%= totalPatients %> 
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -313,19 +322,47 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-header">Action:</div>
+                                            <a class="dropdown-item" href="#">View Completed</a>
+                                            <a class="dropdown-item" href="#">Add recording</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#">Patient at Risk</a>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Open</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- foreach loop ejs -->
+                                        <% for (var i = 0; i < patients.length; i++) { %>
+                                            <tr>
+                                                <th scope="row"><%= patients[i].patientId %></th>
+                                                <td><%= patients[i].name %></td>
+                                                <td><%= patients[i].status %></td>
+                                                <td><a href="/patient/<%= patients[i]._id %>">Open</a></td>
+                                            </tr>
+                                        <% } %>
+                                          
+                                        </tbody>
+                                      </table>
+                                      <!-- <table id="pat" width="100%" border= "0">
+                                
+                                        <tr>
+                                            
+                                         <td class="tab"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">ID</div></td>
+                                         
+                                         <td class="tab"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">NAME</div></td>
+                                         <td class="tab"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">STATUS</div></td>
+                                      </tr>
+                                  </table> -->
                                 </div>
                             </div>
                         </div>
@@ -384,7 +421,6 @@
     <!-- Custom scripts for all pages-->
     <script src="public/static/js/sb-admin-2.min.js"></script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
-
 
 </body>
 

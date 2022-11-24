@@ -84,7 +84,13 @@ const patientSchema = new mongoose.Schema(
         ref: 'Measurement',
       },
     ],
-    bp: [
+    systolic: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
+    diastolic: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Measurement',
@@ -115,6 +121,10 @@ const patientSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
       },
     }],
+    status: {
+      type: String,
+      default: 'active',
+    },
   },
 );
 patientSchema.plugin(AutoIncrement, { inc_field: 'patientId' });
