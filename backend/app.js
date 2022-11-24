@@ -10,6 +10,7 @@ const cors = require('cors');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const passport = require('passport');
+const { startCron, checkAllPatients } = require('./utils/cron');
 const redisClient = require('./utils/redis');
 // const { sendMessage } = require('./utils/sms');
 
@@ -68,6 +69,8 @@ app.get('/status', (req, res) => {
 //   sendMessage(message, receiver);
 //   res.send({ message: 'SMS sent' });
 // });
+startCron();
+// checkAllPatients();
 
 app.use('/', viewsRouter);
 

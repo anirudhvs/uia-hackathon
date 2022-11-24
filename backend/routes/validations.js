@@ -65,17 +65,17 @@ const validateNewPatient = (req) => {
 };
 
 const validatePatient = async (patientId) => {
-  console.log('PID', patientId);
+  // console.log('PID', patientId);
   let risks = [];
   let suggestions = [];
   try {
-    const patient = await Patient.findById(patientId).populate('foetalHeartRate liquor moulding cervix descent contraction pulse temperature');
-    console.log('PATIENT', patient);
+    const patient = await Patient.findById(patientId).populate('foetalHeartRate liquor moulding cervix descent contraction pulse temperature systolic diastolic');
+    // console.log('PATIENT', patient);
     if (!patient) {
       return { risks, suggestions, patient };
     }
     if (patient.foetalHeartRate.length > 0) {
-      console.log('FHR', parseInt(patient.foetalHeartRate.slice(-1)[0].value));
+      // console.log('FHR', parseInt(patient.foetalHeartRate.slice(-1)[0].value));
       if (parseInt(patient.foetalHeartRate.slice(-1)[0].value) > 160) {
         risks.push('Foetal heart rate is high');
         suggestions.push('Transfuse fluid');

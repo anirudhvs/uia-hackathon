@@ -1,5 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 const Patient = require('../models/Patient');
+const { validatePatient } = require('./validations');
 
 const router = express.Router();
 
@@ -18,26 +20,55 @@ module.exports = router;
 router.get('/doctorsDashboard', async (req, res) => {
   let filteredPatients = [];
   let totalPatients = 0;
+  let critical = 0;
+  let monitor = 0;
   try {
-    const patients = await Patient.find().populate('personResponsible');
+    const patients = await Patient.find();
     // res.json(patients);
-    console.log(patients);
+    // console.log(patients);
     totalPatients = patients.length;
     // filter necessary fields
-    filteredPatients = patients.map((patient) => {
+    filteredPatients = await Promise.all(patients.map(async (patient) => {
+      const { risks, suggestions } = await validatePatient(patient._id.toString());
+      console.log('RISK', risks);
+      let status = '';
+      if (risks.length > 3 && suggestions.length > 3) {
+        status = 'High Risk';
+        critical += 1;
+      } else if (risks.length > 0) {
+        status = 'Keep Monitoring';
+        monitor += 1;
+      } else {
+        status = 'Progessing Normally';
+      }
       const {
-        patientId, name, status, _id,
+        patientId, name, _id,
       } = patient;
+      const riskLength = risks.length;
       return {
-        patientId, name, status, _id,
+        patientId, name, status, _id, riskLength,
       };
-    });
+    }));
   } catch (err) {
     res.status(500).json({ message: 'Error getting patients' });
   }
-  res.render('doctorsDashboard', { patients: filteredPatients, totalPatients });
+  // console.log('FILTERED PATIENTS', filteredPatients);
+  // sort patients by risk level
+  filteredPatients.sort((a, b) => {
+    if (a.riskLength > b.riskLength) {
+      return -1;
+    }
+    if (a.riskLength < b.riskLength) {
+      return 1;
+    }
+    return 0;
+  });
+  const normal = totalPatients - critical - monitor;
+
+  res.render('doctorsDashboard', {
+    patients: filteredPatients, totalPatients, normal, critical, monitor,
+  });
 });
-module.exports = router;
 
 router.get('/register', (req, res) => {
   if (req.isAuthenticated()) { res.redirect('/doctorsDashboard'); }
@@ -60,8 +91,26 @@ router.get('/index2', (req, res) => {
   res.render('index2');
 });
 
-router.get('/measurements', (req, res) => {
-  res.render('measurements');
+router.get('/measurements/:patientid', (req, res) => {
+  const { patientid } = req.params;
+  res.render('measurements', { data: {}, patientid });
+});
+
+router.get('/digialert', (req, res) => {
+  res.render('digialert', { data: {} });
+});
+router.get('/graph/:patientId', async (req, res) => {
+  const { patientId } = req.params;
+  // console.log(patientId);
+  try {
+    const patient = await Patient.findById(patientId);
+    const populatedPatient = await patient.populate('foetalHeartRate liquor moulding cervix descent contraction pulse temperature systolic diastolic');
+    // console.log(populatedPatient.name);
+    res.render('graph', { data: {}, patient: populatedPatient });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Error getting patients' });
+  }
 });
 
 module.exports = router;

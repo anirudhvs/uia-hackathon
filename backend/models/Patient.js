@@ -96,6 +96,12 @@ const patientSchema = new mongoose.Schema(
         ref: 'Measurement',
       },
     ],
+    drugs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Measurement',
+      },
+    ],
     temperature: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Measurement',
@@ -124,6 +130,10 @@ const patientSchema = new mongoose.Schema(
     status: {
       type: String,
       default: 'active',
+    },
+    lastMessageSentTime: {
+      type: Date,
+      default: Date.now,
     },
   },
 );

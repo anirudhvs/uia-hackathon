@@ -245,8 +245,10 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                On Process</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
+                                                Normal</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"> 
+                                            <%= normal %>     
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
@@ -262,11 +264,13 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Referral
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Monitor
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">2</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                        <%= monitor %> 
+                                                    </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -287,13 +291,15 @@
 
                      
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Cases</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Critical Patients</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <%= critical %>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -337,7 +343,8 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Open</th>
+                                            <th scope="col">Analytics</th>
+                                            <th scope="col">Add Measurements</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -347,7 +354,8 @@
                                                 <th scope="row"><%= patients[i].patientId %></th>
                                                 <td><%= patients[i].name %></td>
                                                 <td><%= patients[i].status %></td>
-                                                <td><a href="/patient/<%= patients[i]._id %>">Open</a></td>
+                                                <td><a href="/graph/<%= patients[i]._id %>">Click Here</a></td>
+                                                <td><a href="/measurements/<%= patients[i]._id %>">Click Here</a></td>
                                             </tr>
                                         <% } %>
                                           
