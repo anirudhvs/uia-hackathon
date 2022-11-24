@@ -56,4 +56,8 @@ router.get('/graph', (req, res)=>{
   res.render('graph')
 })
 
+router.get('/measurements', (req, res)=>{
+  res.render('measurements')
+})
+
 module.exports = router;

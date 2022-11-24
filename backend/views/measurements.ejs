@@ -160,7 +160,7 @@
           <h2>Add Partorgram Measurements</h2>
         </div>
         <!-- End Header form -->
-        <form id="bookingForm" action="/doctorsDashboard" method="" class="needs-validation" novalidate autocomplete="off"> 
+        <form id="bookingForm" action="/doctorsDashboard" method="" class="needs-validation" onsubmit="return validateForm()" autocomplete="off"> 
         <!-- Start Card -->
         <div class="card">
           <!-- Start Card Body -->
@@ -336,6 +336,59 @@
               });
             }, false);
           })();
+
+          
+          function validateForm()
+          {
+            let x= 
+            document.forms["bookingForm"]["heartrate"].value;
+
+      
+            
+            
+            if(x<70)
+            {
+              alert(str.fontcolor( "red" ));
+              alert("+placental Blood Flow to the fetus compromised, assess reasons. \n + might have to take following actions \n 1. transfuse fluid. \n 2. oxygen supplementation. \n 3. other \n 4. if no possitive response observed refer ungently to the refferal unit");
+            }
+            else if(x>160)
+            {
+              alert("+placental Blood Flow to the fetus compromised, assess reasons. \n + might have to take following actions \n 1. transfuse fluid. \n 2. oxygen supplementation. \n 3. other \n 4. if no possitive response observed refer ungently to the refferal unit");
+            }
+           
+
+
+            let liquor =  document.forms["bookingForm"]["liquorType"].value;
+            if(liquor = "M")
+            {
+              alert("+Refer the woman in labour to a referral unit");
+            }
+            else if(liquor = "M1")
+            {
+              alert("+Liqour in latent first stage of labour, even with normal fetal heart rate");
+            }
+            else if(liquor = "M2")
+            {
+              alert("+Liqour in early active first stage of labour, even with normal fetal heart rate");
+            }
+            else if(liquor = "M3")
+            {
+              alert("+Liqour in any stage of labour, unless progressing fast");
+            }
+
+            let mould =document.forms["bookingForm"]["mouldingType"].value;
+          
+            if(mould = "+3")
+            {
+             
+      alert("+Labor progressing poorly \n +High risk of uterine obstruction \n +Refer the woman in labor ugently to referral Unit");
+            }
+            
+            else if(mould = "+2")
+            {
+              alert("Monitor the patient").layout.textContent.fontcolor("red");
+            }
+          }
         </script>
         <!-- End Scritp for Form -->
       
