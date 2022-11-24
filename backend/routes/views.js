@@ -56,4 +56,8 @@ router.get('/addpatient', (req, res) => {
 router.get('/measurements', (req, res) => {
   res.render('measurements', { data: {} });
 });
+
+router.get('/digialert', (req, res) => {
+  res.render('digialert', { data: {} });
+});
 module.exports = router;
