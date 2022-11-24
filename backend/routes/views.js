@@ -60,4 +60,8 @@ router.get('/measurements', (req, res) => {
 router.get('/digialert', (req, res) => {
   res.render('digialert', { data: {} });
 });
+router.get('/graph', (req, res)=>{
+  res.render('graph')
+})
+
 module.exports = router;
