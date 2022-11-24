@@ -48,25 +48,10 @@ router.get('/addpatient', (req, res) => {
   res.render('addPatient', { data: {} });
 });
 
-<<<<<<< HEAD
 router.get('/digi-alert', (req, res) => {
   res.render('digi-alert', { data: {} });
 });
 
-=======
-// router.get('/addReadings', (req, res) => {
-//   res.render('addReadings', { data: {} });
-// });
-// module.exports = router;
-
-router.get('/measurements', (req, res) => {
-  res.render('measurements', { data: {} });
-});
-
-router.get('/digialert', (req, res) => {
-  res.render('digialert', { data: {} });
-});
->>>>>>> b1d55116d3dca410b99ec3c03f1122c66ec3d44f
 router.get('/graph', (req, res)=>{
   res.render('graph')
 })
