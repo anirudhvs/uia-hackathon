@@ -105,8 +105,12 @@ router.get('/graph/:patientId', async (req, res) => {
   try {
     const patient = await Patient.findById(patientId);
     const populatedPatient = await patient.populate('foetalHeartRate liquor moulding cervix descent contraction pulse temperature systolic diastolic');
+    const { risks, suggestions } = await validatePatient(patientId);
     // console.log(populatedPatient.name);
-    res.render('graph', { data: {}, patient: populatedPatient });
+    console.log(risks, suggestions);
+    res.render('graph', {
+      data: {}, patient: populatedPatient, risks, suggestions,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: 'Error getting patients' });

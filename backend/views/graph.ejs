@@ -45,10 +45,10 @@
 
         <form action="form_action.asp" method="get" name="myForm">
             Patient ID: <%= patient._id %>  <br>
-            Last name: <%= patient.name %>  <br>
+            Name: <%= patient.name %>  <br>
           </form>
           <br>
-          
+          <div class="card-body">
         <div class="card-body">
         <div
         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -82,15 +82,45 @@ class="card-header py-3 d-flex flex-row align-items-center justify-content-betwe
         </div>
 
 <br>
-<div class="card-body">
+<!-- <div class="card-body">
     <div
     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
     <h6 class="m-0 font-weight-bold text-primary">Vital Signs</h6>
     </div>
     <br>
 <canvas id="VitalChart" style="width:100%;max-width:600px"></canvas>
-</div>
+</div> -->
 <br>
+<div class="card-body">
+  <div>
+      <h2>
+       Risks:
+      </h2> 
+       <br>
+
+       <ul>
+          <% for (var i = 0; i < risks.length; i++) { %>
+            <li><%= risks[i] %> </li> 
+        <% } %>
+         
+        
+       </ul>
+       <br>
+       <h2>
+       Suggestions:
+      </h2>
+       <ul>
+        <% for (var i = 0; i < suggestions.length; i++) { %>
+          <li><%= suggestions[i] %> </li> 
+      <% } %>
+       
+           
+       </ul><br>
+
+   </div>
+   </div>
+
+</div>
       
       <script>
 
