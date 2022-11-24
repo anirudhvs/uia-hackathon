@@ -48,6 +48,10 @@ router.get('/addpatient', (req, res) => {
   res.render('addPatient', { data: {} });
 });
 
+router.get('/digi-alert', (req, res) => {
+  res.render('digi-alert', { data: {} });
+});
+
 router.get('/graph', (req, res)=>{
   res.render('graph')
 })
