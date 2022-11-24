@@ -48,4 +48,8 @@ router.get('/addpatient', (req, res) => {
   res.render('addPatient', { data: {} });
 });
 
+router.get('/graph', (req, res)=>{
+  res.render('graph')
+})
+
 module.exports = router;
