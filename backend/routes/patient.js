@@ -110,6 +110,9 @@ router.post('/addmeasurement', async (req, res) => {
   for (let i = 0; i < keys.length; i++) {
     const measurementName = keys[i];
     const value = body[measurementName];
+    if (!value) {
+      continue;
+    }
     if (!allowedMeasurements.includes(measurementName)) {
       res.status(400).json({ message: 'Invalid measurement name' });
       return;

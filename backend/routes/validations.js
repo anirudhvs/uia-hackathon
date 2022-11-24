@@ -125,8 +125,12 @@ const validatePatient = async (patientId) => {
       let prevDilation = parseInt(prev.value, 10);
       //   console.log(recent.timestamp - prev.timestamp);
       let rate = (recentDilation - prevDilation) / ((recent.timestamp - prev.timestamp) / 3600000);
-      if (rate < 1) {
+
+      if (rate < 0.2) {
         suggestions.push('Call doctor immediately');
+        risks.push('Very low rate of cervical dilation');
+      } else if (rate < 1) {
+        suggestions.push('Monitor patient closely');
         risks.push('Low rate of cervical dilation');
       }
     }

@@ -108,8 +108,16 @@ router.get('/graph/:patientId', async (req, res) => {
     const { risks, suggestions } = await validatePatient(patientId);
     // console.log(populatedPatient.name);
     console.log(risks, suggestions);
+    let alertCross = false;
+    let actionCross = false;
+    if (risks.includes('Low rate of cervical dilation')) {
+      alertCross = true;
+    }
+    if (risks.includes('Very low rate of cervical dilation')) {
+      actionCross = true;
+    }
     res.render('graph', {
-      data: {}, patient: populatedPatient, risks, suggestions,
+      data: {}, patient: populatedPatient, risks, suggestions, alertCross, actionCross,
     });
   } catch (err) {
     console.log(err);

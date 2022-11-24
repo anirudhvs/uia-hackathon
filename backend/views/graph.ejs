@@ -67,11 +67,22 @@ class="card-header py-3 d-flex flex-row align-items-center justify-content-betwe
 </div>
 <br>
  <canvas id="cervixDilationChart" style="width:100%;max-width:600px"></canvas>
+ <br>
+ <%if (alertCross) { %>
+   
+     <span style="color: red; font-size: 25px;"> Low Rate of Cervical Dilation. Crossed Alert Line. </span>
+   
 </div>
 
+  <% } %>
+  <%if (actionCross) { %>
+   
+    <span style="color: red; font-size: 25px;"> Very low rate of Cervical Dilation. Crossed Action Line. </span>
+  
+</div>
 
-        <br>
-        
+ <% } %>
+ 
         <div class="card-body">
             <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -209,7 +220,7 @@ new Chart("foetalChart", {
   }
 });
 
-var contractionTimestamp = data.patient.foetalHeartRate.map((element)=> element.timestamp)
+var contractionTimestamp = data.patient.contraction.map((element)=> element.timestamp)
  var contractionValue = data.patient.contraction.map((element)=> element.value)
           
 
