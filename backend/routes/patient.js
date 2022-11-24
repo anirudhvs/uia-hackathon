@@ -25,8 +25,7 @@ router.post('/add', async (req, res) => {
   console.log(req.body);
   const data = req.body;
   // Validate the entered values
-  if (!name || !age || !parity || !alive || !edd || !sb || !nnd || !riskFactors
-    || !contractionStartTime || !membraneRuptureTime || !height) {
+  if (!name || !age || !parity || !alive || !edd || !sb || !nnd  || !height) {
     res.status(400).json({ message: 'Please enter all fields' });
     // res.render('addPatient', { data,  });
     return;
@@ -59,7 +58,7 @@ router.post('/add', async (req, res) => {
     //   message: 'Patient created',
     //   patient: newPatient.populate('foetalHeartRate'),
     // });
-    res.redirect('/doctorDashboard');
+    res.redirect('/doctorsDashboard');
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: 'Error creating patient' });

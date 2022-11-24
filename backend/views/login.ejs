@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="public/static/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="manifest"
+        href="manifest.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"></script>
 
 </head>
@@ -112,6 +114,7 @@
             console.log(data)
             axios.post('/auth/login', data).then((result) => {
                 console.log("login success")
+                location.href = '/'
             }).catch((err) => {
                 console.log("Err", err.response.data.message)
                 alert("Invalid username/password")

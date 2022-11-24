@@ -45,152 +45,131 @@
         <div class="row">
             <div class="limiter">
                 <form action="/patient/add" method="post" id="addpatient">
-                    <div class="container-login100">
-                        <div class="wrap-login100">
+                 <!-- <div class="container-login100"> -->
+                        <div style="color: black; font-weight:bold ;"> 
                             <!-- <div class="login100-pic js-tilt" data-tilt>
                                 <img src="images/img-01.png" alt="IMG">
                             </div> -->
-                            <h2>Patient Admission Form</h2>
+                            <br/>
+                            <center>
+                                <h2 style="font-weight:bold;">Patient Admission Form</h2>
+                            </center>
+
+                            <% if (locals.errors) { %>
+                                <% for(var i=0; i<errors.length; i++) {%>
+                                    <div style="color: red;" role="alert">
+                                        <%= errors[i] %>
+                                      </div>
+                                 <% } %>
+                              <br/>
+                        <% } %>
+
                             <div class="wrap-input100 validate-input">
                                 
                                 
-                                <% if (locals.errors) { %>
-                                        <% for(var i=0; i<errors.length; i++) {%>
-                                            <div style="color: red;" role="alert">
-                                                <%= errors[i] %>
-                                              </div>
-                                         <% } %>
-                                      <br/>
-                                <% } %>
-
-                                    <label for="Name">Name:</label>
+                               
+                                              
+                                    <label for="Name" style="font-size:18px">Name:</label>
                                     <input class="input100" type="text" name="name" value="<%= data.name  %>" placeholder="Enter Name" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
-                                </div>
+                                    
+                            </div>
                                 
                                 <!--Age-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="Age">Age:</label>
+                                    <label for="Age" style="font-size:18px">Age:</label>
                                     <input class="input100" type="number" name="age" placeholder="Enter Age" value="<%= data.age  %>" required>
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--Parity-->
     
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="parity">Parity:</label>
+                                    <label for="parity" style="font-size:18px">Parity:</label>
                                     <input class="input100" type="number" name="parity" placeholder="Enter Parity" value="<%= data.parity %>" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
                                 
                                 <!--Alive-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="alive">Alive Children</label>
+                                    <label for="alive" style="font-size:18px">Alive Children</label>
                                     <input class="input100" type="number" name="alive" value="<%= data.alive %>" placeholder="Enter Number Of Alive Children" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
                                 
                                 <!--Edd-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="edd">EDD:</label>
+                                    <label for="edd" style="font-size:18px">EDD:</label>
                                     <input class="input100" type="date" value="<%= data.edd %>" name="edd" placeholder="Enter edd" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--sb-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="sb">SB:</label>
+                                    <label for="sb" style="font-size:18px">SB:</label>
                                     <input class="input100" type="number" value="<%= data.sb %>" name="sb" placeholder="Enter SB" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--nnd-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="NND">NND:</label>
+                                    <label for="NND" style="font-size:18px">NND:</label>
                                     <input class="input100" type="number" value="<%= data.nnd %>" name="nnd" placeholder="Enter NND" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                    
                                 </div>
     
                                 <!--Risk Factors-->
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="riskfactors">Enter Risk Factors</label>
-                                    <input class="input100" type="string" value="<%= data.riskFactors %>" name="riskFactors" placeholder="Enter risk factors" required>
+                                    <label for="riskfactors" style="font-size:18px">Enter Risk Factors</label>
+                                    <input class="input100" type="string" value="<%= data.riskFactors %>" name="riskFactors" placeholder="Enter risk factors">
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--ContractionStartTime-->
     
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="ContractionStartTime">Contraction Start Time</label>
+                                    <label for="ContractionStartTime" style="font-size:18px">Contraction Start Time</label>
                                     <input class="input100" type="datetime-local"  value="<%= data.contractionStartTime %>" name="contractionStartTime" placeholder="Enter The Contraction Start Time">
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--Membrane Rupture Time-->
     
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="membraneRuptureTime">Membrane Rupture Time</label>
+                                    <label for="membraneRuptureTime" style="font-size:18px">Membrane Rupture Time</label>
                                     <input class="input100" type="datetime-local" value="<%= data.membraneRuptureTime %>" name="membraneRuptureTime" placeholder="Enter The Contraction Start Time">
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
     
                                 <!--Height-->
     
     
                                 <div class="wrap-input100 validate-input"value>
-                                    <label for="Height">Height</label>
-                                    <input class="input100" type="number" name="height" value="<%= data.height %>" placeholder="Enter Height">
+                                    <label for="Height" style="font-size:18px">Height</label>
+                                    <input class="input100" type="number" name="height" value="<%= data.height %>" placeholder="Enter Height" required>
                                     
-                                    <!-- <span class="symbol-input100">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span> -->
+                                    
                                 </div>
-    
-                        
-            
-                               
-                                
-                                <div class="container-login100-form-btn">
-                                    <!-- <submit class="login100-form-btn" >
-                                        Submit
-                                    </submit> -->
-                                    <input class="login100-form-btn"  type="submit" value="Submit" />
+                                <div class="container my-3 bg-light">
+                                    <div class="col-md-12 text-center">
+                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                        <input class="btn btn-secondary" type="reset" value="Reset">
+                                    </div>
                                 </div>
-                        </div>
-                    </div>
+                     
+                         </div>
+                    <!-- </div>  -->
                 </form>
             </div>
         </div>
-
 
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     </body>

@@ -3,10 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+  if(req.isAuthenticated())
+    res.redirect('/doctorsDashboard');
   res.render('index');
 });
 
 router.get('/login', (req, res) => {
+  if(req.isAuthenticated())
+    res.redirect('/doctorsDashboard');
   res.render('login');
 });
 
@@ -18,6 +22,8 @@ router.get('/doctorsDashboard', (req, res) => {
 module.exports = router;
 
 router.get('/register', (req, res) => {
+  if(req.isAuthenticated())
+    res.redirect('/doctorsDashboard');
   res.render('register');
 });
 
