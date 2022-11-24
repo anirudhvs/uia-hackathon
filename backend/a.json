@@ -1,0 +1,130 @@
+{
+    "risks": [
+        "Foetal heart rate is low",
+        "Miconium detected",
+        "Low rate of cervical dilation"
+    ],
+    "suggestions": [
+        "Transfuse fluid",
+        "Oxygen Supplementation",
+        "If no positive response observed refer urgently to referral unit",
+        "Take care of infection in baby after birth",
+        "Call doctor immediately"
+    ],
+    "patient": {
+        "_id": "637e4717d32169ddae592f1d",
+        "name": "Anirudh",
+        "age": 20,
+        "parity": 3,
+        "alive": 3,
+        "edd": "2022-11-23T16:04:57.328Z",
+        "sb": 2,
+        "nnd": 2,
+        "riskFactors": "whatevenr",
+        "contractionStartTime": "2022-11-23T17:04:57.328Z",
+        "membraneRuptureTime": "2022-11-23T20:04:57.328Z",
+        "personResponsible": "6375d2de9b545b3f064f4314",
+        "foetalHeartRate": [
+            {
+                "_id": "637eb3940bddddbf136bc2fb",
+                "measurementName": "foetalHeartRate",
+                "value": "1",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T23:58:12.610Z",
+                "__v": 0
+            }
+        ],
+        "liquor": [
+            {
+                "_id": "637e7867d0766b2a36b5140d",
+                "measurementName": "liquor",
+                "value": "M",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T19:45:43.392Z",
+                "__v": 0
+            },
+            {
+                "_id": "637e786ad0766b2a36b51412",
+                "measurementName": "liquor",
+                "value": "M",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T19:45:46.725Z",
+                "__v": 0
+            }
+        ],
+        "moulding": [],
+        "cervix": [
+            {
+                "_id": "637e8e6197db0031bb6e2580",
+                "measurementName": "cervix",
+                "value": "5",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T21:19:29.546Z",
+                "__v": 0
+            },
+            {
+                "_id": "637e8e6797db0031bb6e258a",
+                "measurementName": "cervix",
+                "value": "5",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T21:19:35.764Z",
+                "__v": 0
+            },
+            {
+                "_id": "637e8e6997db0031bb6e2594",
+                "measurementName": "cervix",
+                "value": "5",
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "timestamp": "2022-11-23T21:19:37.474Z",
+                "__v": 0
+            }
+        ],
+        "descent": [],
+        "contraction": [],
+        "pulse": [],
+        "bp": [],
+        "temperature": [],
+        "urine": [
+            {
+                "volume": 10,
+                "albumin": 20,
+                "glucose": 30,
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "_id": "637e7c3c6769eecaccd62939"
+            },
+            {
+                "volume": 10,
+                "albumin": 20,
+                "glucose": 30,
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "_id": "637e7c416769eecaccd6293e"
+            },
+            {
+                "volume": 10,
+                "albumin": 20,
+                "glucose": 30,
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "_id": "637e7c496769eecaccd62944"
+            },
+            {
+                "volume": 10,
+                "albumin": 20,
+                "glucose": 30,
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "_id": "637e85487ffa15077c6a2cbf"
+            },
+            {
+                "volume": 10,
+                "albumin": 20,
+                "glucose": 30,
+                "recordedBy": "6375d2de9b545b3f064f4314",
+                "_id": "637e855e335273b7ac158759"
+            }
+        ],
+        "patientId": 3,
+        "__v": 18,
+        "diastolic": [],
+        "status": "active",
+        "systolic": []
+    }
+}
