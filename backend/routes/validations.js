@@ -69,36 +69,52 @@ const validatePatient = async (patientId) => {
   let risks = [];
   let suggestions = [];
   try {
-    const patient = await Patient.findById(patientId).populate('foetalHeartRate liquor moulding cervix descent contraction pulse bp temperature');
-    // console.log('PATIENT', patient);
+    const patient = await Patient.findById(patientId).populate('foetalHeartRate liquor moulding cervix descent contraction pulse temperature');
+    console.log('PATIENT', patient);
     if (!patient) {
       return { risks, suggestions, patient };
     }
     if (patient.foetalHeartRate.length > 0) {
-      if (parseInt(patient.foetalHeartRate.slice(-1)[0]) > 160) {
+      console.log('FHR', parseInt(patient.foetalHeartRate.slice(-1)[0].value));
+      if (parseInt(patient.foetalHeartRate.slice(-1)[0].value) > 160) {
         risks.push('Foetal heart rate is high');
-      } else if (parseInt(patient.foetalHeartRate.slice(-1)[0]) < 120) {
+        suggestions.push('Transfuse fluid');
+        suggestions.push('Oxygen Supplementation');
+        suggestions.push('If no positive response observed refer urgently to referral unit');
+      } else if (parseInt(patient.foetalHeartRate.slice(-1)[0].value) < 120) {
         risks.push('Foetal heart rate is low');
+        suggestions.push('Transfuse fluid');
+        suggestions.push('Oxygen Supplementation');
+        suggestions.push('If no positive response observed refer urgently to referral unit');
       }
     }
     if (patient.liquor.length > 0) {
-      if (patient.liquor.slice(-1)[0] === 'M') {
+      if (patient.liquor.slice(-1)[0].value === 'M') {
         risks.push('Miconium detected');
+        suggestions.push('Take care of infection in baby after birth');
+      }
+      if (patient.liquor.slice(-1)[0].value === 'M1'
+      || patient.liquor.slice(-1)[0].value === 'M2'
+      || patient.liquor.slice(-1)[0].value === 'M3') {
+        risks.push('Dangerous Levels of Miconium detected');
+        suggestions.push('Move the patient to referral unit');
       }
       if (patient.liquor.length >= 3) {
-        if (patient.liquor.slice(-3)[0] === 'I' && patient.liquor.slice(-2)[0] === 'I' && patient.liquor.slice(-1)[0] === 'I') {
+        if (patient.liquor.slice(-3)[0].value === 'I' && patient.liquor.slice(-2)[0].value === 'I' && patient.liquor.slice(-1)[0].value === 'I') {
           risks.push('Intact detected 3 times in a row');
         }
       }
     }
     if (patient.moulding.length > 0) {
-      if (patient.moulding.slice(-1)[0] === '3') {
+      if (patient.moulding.slice(-1)[0].value === '3') {
         risks.push('High moulding detected. Refer to facility.');
+        suggestions('Refer to facility as very high moulding detected. Possible vaginal obstruction.');
       }
-      if (patient.moulding.slice(-1)[0] === '2') {
+      if (patient.moulding.slice(-1)[0].value === '2') {
         risks.push('Medium moulding detected. Keep monitoring.');
       }
     }
+
     if (patient.cervix.length > 0) {
       // calculate rate of cervical dilation
       // if rate is > 1cm/hour, suggest to call doctor
@@ -111,14 +127,45 @@ const validatePatient = async (patientId) => {
       let rate = (recentDilation - prevDilation) / ((recent.timestamp - prev.timestamp) / 3600000);
       if (rate < 1) {
         suggestions.push('Call doctor immediately');
-        risks.push('High rate of cervical dilation');
+        risks.push('Low rate of cervical dilation');
       }
     }
-    // if (patient.descent.length > 0) {
-
-    // }
+    if (patient.systolic.length > 0) {
+      if (parseInt(patient.systolic.slice(-1)[0].value) > 140) {
+        risks.push('High systolic blood pressure');
+      }
+      if (parseInt(patient.systolic.slice(-1)[0].value) < 110) {
+        risks.push('Low systolic blood pressure');
+      }
+    }
+    if (patient.diastolic.length > 0) {
+      if (parseInt(patient.diastolic.slice(-1)[0].value) > 80) {
+        risks.push('High diastolic blood pressure');
+      }
+      if (parseInt(patient.diastolic.slice(-1)[0].value) < 60) {
+        risks.push('Low diastolic blood pressure');
+      }
+    }
+    if (patient.temperature.length > 0) {
+      if (parseInt(patient.temperature.slice(-1)[0].value) > 37) {
+        risks.push('High temperature');
+      }
+      if (parseInt(patient.temperature.slice(-1)[0].value) < 36) {
+        risks.push('Low temperature');
+      }
+    }
+    if (patient.pulse.length > 0) {
+      if (parseInt(patient.pulse.slice(-1)[0].value) > 100) {
+        risks.push('High pulse');
+      }
+      if (parseInt(patient.pulse.slice(-1)[0].value) < 60) {
+        risks.push('Low pulse');
+      }
+    }
+    return { risks, suggestions, patient };
   } catch (err) {
     console.log(err);
+    return { risks, suggestions, patient: null };
   }
 };
 

@@ -25,7 +25,7 @@ router.post('/add', async (req, res) => {
   console.log(req.body);
   const data = req.body;
   // Validate the entered values
-  if (!name || !age || !parity || !alive || !edd || !sb || !nnd  || !height) {
+  if (!name || !age || !parity || !alive || !edd || !sb || !nnd || !height) {
     res.status(400).json({ message: 'Please enter all fields' });
     // res.render('addPatient', { data,  });
     return;
@@ -89,7 +89,8 @@ router.post('/addmeasurement', async (req, res) => {
     'descent',
     'contraction',
     'pulse',
-    'bp',
+    'systolic',
+    'diastolic',
     'urine',
   ];
 
@@ -188,9 +189,10 @@ router.post('/addmeasurement', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     // const patient = await Patient.findById(req.params.id).populate('personResponsible liquor');
-    validatePatient(req.params.id);
+    const { risks, suggestions, patient } = await validatePatient(req.params.id);
     // res.json(patient);
-    res.send('ok');
+    console.log(risks, suggestions);
+    res.json({ risks, suggestions, patient });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: 'Error getting patient' });
