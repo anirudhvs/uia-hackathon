@@ -60,4 +60,8 @@ router.get('/index2', (req, res) => {
   res.render('index2');
 });
 
+router.get('/measurements', (req, res)=>{
+  res.render('measurements')
+})
+
 module.exports = router;
