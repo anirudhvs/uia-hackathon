@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
 const Patient = require('../models/Patient');
+const { sendMessage } = require('../utils/sms');
 
 const ageCheck = (age) => {
   if (age < 0) {
@@ -125,13 +126,17 @@ const validatePatient = async (patientId) => {
       let prevDilation = parseInt(prev.value, 10);
       //   console.log(recent.timestamp - prev.timestamp);
       let rate = (recentDilation - prevDilation) / ((recent.timestamp - prev.timestamp) / 3600000);
-
+      console.log('Rate', rate);
       if (rate < 0.2) {
         suggestions.push('Call doctor immediately');
         risks.push('Very low rate of cervical dilation');
+        console.log('SENT MESSAGE alert');
+        sendMessage(`Patient  ${patient.name} has very low rate of cervical dilation. CROSS ACTION Check immediately`, 'PHONE_NO_OF_RECIPIENTS');
       } else if (rate < 1) {
         suggestions.push('Monitor patient closely');
         risks.push('Low rate of cervical dilation');
+        console.log('SENT MESSAGE action');
+        sendMessage(`Patient  ${patient.name} has very low rate of cervical dilation. CROSS ALERT. Monitor Closely`, 'PHONE_NO_OF_RECIPIENTS');
       }
     }
     if (patient.systolic.length > 0) {

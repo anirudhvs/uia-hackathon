@@ -32,7 +32,7 @@ router.get('/doctorsDashboard', async (req, res) => {
       const { risks, suggestions } = await validatePatient(patient._id.toString());
       console.log('RISK', risks);
       let status = '';
-      if (risks.length > 3 && suggestions.length > 3) {
+      if (risks.length > 2 && suggestions.length > 2) {
         status = 'High Risk';
         critical += 1;
       } else if (risks.length > 0) {
