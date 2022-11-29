@@ -61,7 +61,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="tel" class="form-control form-control-user" name="phone" pattern="[0-9]{5}-[0-9]{5}" id="type"
+                                    <input type="tel" class="form-control form-control-user" name="phoneNo" pattern="[0-9]{5}-[0-9]{5}" id="phoneNo"
                                         placeholder="Phone Number">
                                 </div>
                                 <div class="form-group">
@@ -104,8 +104,9 @@
             let email = document.getElementById('email').value
             let userType = document.getElementById('type').value
             let hospitalName = document.getElementById('hospital').value
+            let phoneNo = document.getElementById('phoneNo').value
             data = {
-                username, password, userType, hospitalName, email
+                username, password, userType, hospitalName, email, phoneNo
             }
             console.log(data)
             axios.post('/auth/register', data, {withCredentials: true}).then((result) => {

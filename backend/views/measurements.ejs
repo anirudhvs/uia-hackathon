@@ -160,79 +160,49 @@
           <h2>Add Partorgram Measurements</h2>
         </div>
         <!-- End Header form -->
-        <form id="bookingForm" action="/doctorsDashboard" method="" class="needs-validation" onsubmit="return validateForm()" autocomplete="off"> 
+        <form id="bookingForm" action="/patient/addmeasurement" method="post" class="needs-validation" novalidate autocomplete="off"> 
         <!-- Start Card -->
         <div class="card">
+          <input type="text" name="patientId" value="<%= patientid %>" hidden />
           <!-- Start Card Body -->
           <div class="card-body">
             
                 <div class="form-group">
-                  <label for="inputName" ><b>Patient ID</b></label>
-                  <input type="text" class="form-control" id="inputPassport" name="name" placeholder="Add Patient Details"/>
-                 
-                </div>
-              <!-- Start Input Name -->
-              <div class="form-group">
-                <label for="inputName">Name</label>
-                <input type="text" class="form-control" id="inputName" name="name" placeholder="Your name"/>
-               
-              </div>
-      
-              <!-- Start Input Date , Start Time and End Time -->
-              <div class="form-row">
-
-      
-                <!-- Start Input Start Time -->
-                <div class="form-group col-md-4">
-                  <!-- <label>Start Time</label> -->
-                  <div class="d-flex flex-row justify-content-between align-items-center">
-                    <!-- <select class="form-control mr-1" id="inputStartTimeHour" name="startHour" required> -->
-                      <label for="appt"></label>
-                      <input type="time" id="appt" name="appt">
-                     
-                    </select>
-                    <div class="pl-1 pr-2">:</div>
-                    <!-- <select class="form-control" id="inputStartTimeMinute" name="startMinute" required>
-                      <option value="" disabled selected>Min</option> -->
-                      <!-- <option value="00">00</option>
-                      <option value="00">30</option> -->
-                      <label for="appt"></label>
-                      <input type="time" id="appt" name="appt">
-                    </select>
-                  </div>
-                </div>
-              
-              <!-- End Input Date , Start Time and End Time -->
+                  
                 <!-- One "tab" for each step in the form: -->
                 </div><b>Foetal Details:</b>
                    <!-- Start Input End Time -->
                   <!-- Start Input Name -->
               <div class="form-group">
                 <label for="inputName">Foetal Heart Rate</label>
-                <input type="number" class="form-control" id="heartrate" name="name" placeholder="Enter Foetal Heart Rate"/>
-               
+                <input type="number" class="form-control" id="heartrate" name="foetalHeartRate" placeholder="Enter Foetal Heart Rate"/>
+
               </div>
              <!-- Start Check Room Type -->
              <div class="form-group">
               <legend class="col-form-label pt-0">Choose the type of the liquor</legend>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineliquorType1" name="liquorType" value="type1"/>
+                <input type="radio" class="form-check-input" id="inlineliquorType1" name="liquor" value="I"/>
+                <label class="form-check-label" for="inlineliquorType1">I</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="inlineliquorType1" name="liquor" value="C"/>
                 <label class="form-check-label" for="inlineliquorType1">C</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineliquorType2" name="liquorType" value="type2"/>
+                <input type="radio" class="form-check-input" id="inlineliquorType2" name="liquor" value="M"/>
                 <label class="form-check-label" for="inlineliquorType2">M</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineliquorType3" name="liquorType" value="type3"/>
+                <input type="radio" class="form-check-input" id="inlineliquorType3" name="liquor" value="M1"/>
                 <label class="form-check-label" for="inlineliquorType3">M1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineliquorType4" name="liquorType" value="type4"/>
+                <input type="radio" class="form-check-input" id="inlineliquorType4" name="liquor" value="M2"/>
                 <label class="form-check-label" for="inlineliquorType4">M2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineliquorType5" name="liquorType" value="type4"/>
+                <input type="radio" class="form-check-input" id="inlineliquorType5" name="liquor" value="M3"/>
                 <label class="form-check-label" for="inlineliquorType5">M3</label>
               </div>
             </div>
@@ -241,19 +211,19 @@
              <div class="form-group">
               <legend class="col-form-label pt-0">Choose the Moulding</legend>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineRadioType1" name="mouldingType" value="type1"/>
+                <input type="radio" class="form-check-input" id="inlineRadioType1" name="moulding" value="0"/>
                 <label class="form-check-label" for="inlineRadioType1">0</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineRadioType2" name="mouldingType" value="type2"/>
+                <input type="radio" class="form-check-input" id="inlineRadioType2" name="moulding" value="1"/>
                 <label class="form-check-label" for="inlineRadioType2">+1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineRadioType3" name="mouldingType" value="type3"/>
+                <input type="radio" class="form-check-input" id="inlineRadioType3" name="moulding" value="2"/>
                 <label class="form-check-label" for="inlineRadioType3">+2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="inlineRadioType4" name="mouldingType" value="type4"/>
+                <input type="radio" class="form-check-input" id="inlineRadioType4" name="moulding" value="3"/>
                 <label class="form-check-label" for="inlineRadioType4">+3</label>
               </div>
             </div>
@@ -261,30 +231,69 @@
               <div class="form-group">
                 <label>Martenal Information</label>
                 <div class="d-flex flex-row justify-content-between align-items-center">
-                  <label for="cervixdilation" style="font-size:14px">Cervix Dilation:</label>
-                  <input class="form-control mr-1" id="cervixdilation" name="cervixdilation" required>
-                    
-                  </input>
+                  <select class="form-control mr-1" id="cervixdilation" name="cervix" required>
+                    <option value="-1" disabled selected>Cervix Dilation</option>
+                    <option value="4">04</option>
+                    <option value="5">05</option>
+                    <option value="6">06</option>
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                  </select>
                   <div class="pl-1 pr-2">    </div>
-                  <label for="descent" style="font-size:14px">Descent:</label> 
-                  <input class="form-control mr-1" id="descent" name="descent" required>
+                  <select class="form-control" id="descent" name="descent" required>
+                    <option value="" disabled selected>Descent </option>
+                    <option value="4">04</option>
+                    <option value="3">03</option>
+                    <option value="2">02</option>
+                    <option value="0">00</option>
+                  </select>
                 </div>
               </div>
               <!-- End Input Start Time -->
       
               <!-- Start Input End Time -->
               <div class="form-group">
-                <label>No of Constractions</label>
+                <label>No of Contractions</label>
                 <div class="d-flex flex-row justify-content-between align-items-center">
                   <!-- <label for="contractions" style="font-size:18px">Number Of contractions</label> -->
-                  <input class="form-control mr-1" type="number" id="constractions" name="contractions" required>
+                  <input class="form-control mr-1" type="number" id="constractions" name="contraction" >
                   </input>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label>Pulse</label>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <!-- <label for="contractions" style="font-size:18px">Number Of contractions</label> -->
+                  <input class="form-control mr-1" type="number" id="pulse" name="pulse" >
+                  </input>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Systolic</label>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <!-- <label for="contractions" style="font-size:18px">Number Of contractions</label> -->
+                  <input class="form-control mr-1" type="number" id="systolic" name="systolic" >
+                  </input> 
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Diastolic</label>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <!-- <label for="contractions" style="font-size:18px">Number Of contractions</label> -->
+                  <input class="form-control mr-1" type="number" id="diastolic" name="diastolic" >
+                  </input> 
+                </div>
+              </div>
+
                    <!-- Start Input Remark -->
                    <div class="form-group">
                     <label for="textAreaRemark">Drugs Taken and Remarks</label>
-                    <textarea class="form-control" name="remark" id="textAreaRemark" rows="2" placeholder="Any action taken..."></textarea>
+                    <textarea class="form-control" name="drugs" id="textAreaRemark" rows="2" placeholder="Any action taken..."></textarea>
                   </div>
                   <!-- End Input Remark -->
               

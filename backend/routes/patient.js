@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-underscore-dangle */
 const express = require('express');
 
@@ -75,12 +77,20 @@ router.get('/list', async (req, res) => {
 });
 
 router.post('/addmeasurement', async (req, res) => {
-  const { measurementName, value, patientId } = req.body;
-  if (!measurementName || (!value && measurementName !== 'urine')) {
-    res.status(400).json({ message: 'Please enter all fields' });
-    return;
-  }
-
+  const { body } = req;
+  console.log('#######');
+  console.log(body);
+  console.log('#######');
+  // const { measurementName, value, patientId } = req.body;
+  // if (!measurementName || (!value && measurementName !== 'urine')) {
+  //   res.status(400).json({ message: 'Please enter all fields' });
+  //   return;
+  // }
+  // get keys
+  const keys = Object.keys(body);
+  // remove patientId
+  const { patientId } = body;
+  keys.splice(keys.indexOf('patientId'), 1);
   const allowedMeasurements = [
     'foetalHeartRate',
     'liquor',
@@ -92,41 +102,53 @@ router.post('/addmeasurement', async (req, res) => {
     'systolic',
     'diastolic',
     'urine',
+    'drugs',
   ];
 
-  if (!allowedMeasurements.includes(measurementName)) {
-    res.status(400).json({ message: 'Invalid measurement name' });
-    return;
-  }
-  try {
-    const patient = await Patient.findById(patientId);
-    if (measurementName === 'urine') {
-      const {
-        volume, albumin, glucose, acetone, voimitus,
-      } = req.body;
-      patient.urine.push({
-        volume, albumin, glucose, acetone, voimitus, recordedBy: req.user._id,
-      });
-    } else {
-      console.log(measurementName, value, req.user._id);
-      const measurement = new Measurement({
-        measurementName,
-        value,
-        recordedBy: req.user._id,
-      });
-      await measurement.save();
-      patient[measurementName].push(measurement._id);
-    }
+  // keys.forEach(async (key) => {
 
-    await patient.save();
-    res.status(201).json({
-      message: 'Measurement added',
-      patient,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: 'Error adding measurement' });
+  for (let i = 0; i < keys.length; i++) {
+    const measurementName = keys[i];
+    const value = body[measurementName];
+    if (!value) {
+      continue;
+    }
+    if (!allowedMeasurements.includes(measurementName)) {
+      res.status(400).json({ message: 'Invalid measurement name' });
+      return;
+    }
+    try {
+      const patient = await Patient.findById(patientId);
+      if (measurementName === 'urine') {
+        const {
+          volume, albumin, glucose, acetone, voimitus,
+        } = req.body;
+        patient.urine.push({
+          volume, albumin, glucose, acetone, voimitus, recordedBy: req.user._id,
+        });
+      } else {
+        console.log(measurementName, value, req.user._id);
+        const measurement = new Measurement({
+          measurementName,
+          value,
+          recordedBy: req.user._id,
+        });
+        await measurement.save();
+        patient[measurementName].push(measurement._id);
+      }
+
+      await patient.save();
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ message: 'Error adding measurement' });
+      return;
+    }
+  // });
   }
+  // res.status(201).json({
+  //   message: 'Measurement added',
+  // });
+  res.redirect(`/graph/${patientId}`);
 });
 
 // router.post('/insert', async (req, res) => {

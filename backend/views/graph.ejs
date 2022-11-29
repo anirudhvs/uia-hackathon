@@ -44,12 +44,11 @@
         <%- include('../views/partials/red1.ejs');%>
 
         <form action="form_action.asp" method="get" name="myForm">
-            Patient ID:  <br>
-            Last name: <br>
-
+            Patient ID: <%= patient._id %>  <br>
+            Name: <%= patient.name %>  <br>
           </form>
           <br>
-
+          <div class="card-body">
         <div class="card-body">
         <div
         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -68,11 +67,22 @@ class="card-header py-3 d-flex flex-row align-items-center justify-content-betwe
 </div>
 <br>
  <canvas id="cervixDilationChart" style="width:100%;max-width:600px"></canvas>
+ <br>
+ <%if (alertCross) { %>
+   
+     <span style="color: red; font-size: 25px;"> Low Rate of Cervical Dilation. Crossed Alert Line. </span>
+   
 </div>
 
+  <% } %>
+  <%if (actionCross) { %>
+   
+    <span style="color: red; font-size: 25px;"> Very low rate of Cervical Dilation. Crossed Action Line. </span>
+  
+</div>
 
-        <br>
-        
+ <% } %>
+ 
         <div class="card-body">
             <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -83,157 +93,59 @@ class="card-header py-3 d-flex flex-row align-items-center justify-content-betwe
         </div>
 
 <br>
-<div class="card-body">
+<!-- <div class="card-body">
     <div
     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
     <h6 class="m-0 font-weight-bold text-primary">Vital Signs</h6>
     </div>
     <br>
 <canvas id="VitalChart" style="width:100%;max-width:600px"></canvas>
-</div>
+</div> -->
 <br>
+<div class="card-body">
+  <div>
+      <h2>
+       Risks:
+      </h2> 
+       <br>
+
+       <ul>
+          <% for (var i = 0; i < risks.length; i++) { %>
+            <li><%= risks[i] %> </li> 
+        <% } %>
+         
+        
+       </ul>
+       <br>
+       <h2>
+       Suggestions:
+      </h2>
+       <ul>
+        <% for (var i = 0; i < suggestions.length; i++) { %>
+          <li><%= suggestions[i] %> </li> 
+      <% } %>
+       
+           
+       </ul><br>
+
+   </div>
+   </div>
+
+</div>
       
       <script>
 
             
 
              function getData(patientId) {
-                return {
-    "risks": [
-        "Foetal heart rate is low",
-        "Miconium detected",
-        "Low rate of cervical dilation"
-    ],
-    "suggestions": [
-        "Transfuse fluid",
-        "Oxygen Supplementation",
-        "If no positive response observed refer urgently to referral unit",
-        "Take care of infection in baby after birth",
-        "Call doctor immediately"
-    ],
-    "patient": {
-        "_id": "637e4717d32169ddae592f1d",
-        "name": "Anirudh",
-        "age": 20,
-        "parity": 3,
-        "alive": 3,
-        "edd": "2022-11-23T16:04:57.328Z",
-        "sb": 2,
-        "nnd": 2,
-        "riskFactors": "whatevenr",
-        "contractionStartTime": "2022-11-23T17:04:57.328Z",
-        "membraneRuptureTime": "2022-11-23T20:04:57.328Z",
-        "personResponsible": "6375d2de9b545b3f064f4314",
-        "foetalHeartRate": [
-            {
-                "_id": "637eb3940bddddbf136bc2fb",
-                "measurementName": "foetalHeartRate",
-                "value": "1",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T23:58:12.610Z",
-                "__v": 0
-            }
-        ],
-        "liquor": [
-            {
-                "_id": "637e7867d0766b2a36b5140d",
-                "measurementName": "liquor",
-                "value": "M",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T19:45:43.392Z",
-                "__v": 0
-            },
-            {
-                "_id": "637e786ad0766b2a36b51412",
-                "measurementName": "liquor",
-                "value": "M",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T19:45:46.725Z",
-                "__v": 0
-            }
-        ],
-        "moulding": [],
-        "cervix": [
-            {
-                "_id": "637e8e6197db0031bb6e2580",
-                "measurementName": "cervix",
-                "value": "5",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T21:19:29.546Z",
-                "__v": 0
-            },
-            {
-                "_id": "637e8e6797db0031bb6e258a",
-                "measurementName": "cervix",
-                "value": "5",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T21:19:35.764Z",
-                "__v": 0
-            },
-            {
-                "_id": "637e8e6997db0031bb6e2594",
-                "measurementName": "cervix",
-                "value": "5",
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "timestamp": "2022-11-23T21:19:37.474Z",
-                "__v": 0
-            }
-        ],
-        "descent": [],
-        "contraction": [],
-        "pulse": [],
-        "bp": [],
-        "temperature": [],
-        "urine": [
-            {
-                "volume": 10,
-                "albumin": 20,
-                "glucose": 30,
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "_id": "637e7c3c6769eecaccd62939"
-            },
-            {
-                "volume": 10,
-                "albumin": 20,
-                "glucose": 30,
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "_id": "637e7c416769eecaccd6293e"
-            },
-            {
-                "volume": 10,
-                "albumin": 20,
-                "glucose": 30,
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "_id": "637e7c496769eecaccd62944"
-            },
-            {
-                "volume": 10,
-                "albumin": 20,
-                "glucose": 30,
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "_id": "637e85487ffa15077c6a2cbf"
-            },
-            {
-                "volume": 10,
-                "albumin": 20,
-                "glucose": 30,
-                "recordedBy": "6375d2de9b545b3f064f4314",
-                "_id": "637e855e335273b7ac158759"
-            }
-        ],
-        "patientId": 3,
-        "__v": 18,
-        "diastolic": [],
-        "status": "active",
-        "systolic": []
-    }
-}
-            }
-
+              return <%- JSON.stringify(patient) %>;
+             }
         </script>
 
         <script>
-            const data = getData(1);
+            const data = {
+              "patient":getData(1)
+            };
             console.log(data)
             var patientId= data.patient._id;
             var patientName= data.patient.name;
@@ -291,13 +203,13 @@ new Chart("cervixDilationChart", {
 new Chart("foetalChart", {
   type: "line",
   data: {
-    labels: dilationTimestamp,
+    labels: FetalTimestamp,
     datasets: [{
       fill: false,
       lineTension: 0,
       backgroundColor: "rgba(0,0,255,1.0)",
       borderColor: "rgba(0,0,255,0.1)",
-      data: dilationValue
+      data: FoetalValue
     }]
   },
   options: {
@@ -308,7 +220,7 @@ new Chart("foetalChart", {
   }
 });
 
-var contractionTimestamp = data.patient.foetalHeartRate.map((element)=> element.timestamp)
+var contractionTimestamp = data.patient.contraction.map((element)=> element.timestamp)
  var contractionValue = data.patient.contraction.map((element)=> element.value)
           
 
@@ -345,69 +257,90 @@ new Chart("contractionChart", {
 });
 
 
-var FetalTimestamp = data.patient.foetalHeartRate.map((element)=> element.timestamp)
-var temperatureValue = data.patient.temperature.map((element)=> element.temperature)
+var systolicTimestamp = data.patient.systolic.map((element)=> element.timestamp)
+var diastolicTimestamp = data.patient.diastolic.map((element)=> element.timestamp)
+var systolicValues = data.patient.systolic.map((element)=> element.value)
+var diastolicValues = data.patient.diastolic.map((element)=> element.value)
+
 var BpValue = data.patient.bp.map((element)=> element.bp)
 var pulseValue = data.patient.pulse.map((element)=> element.pulse)
-                   
-new Chart("VitalChart", {
-  type: "line",
-  data: {
-    labels: FetalTimestamp,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: temperatureValue
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-        yAxes: [{ticks: {min: 50, max:220}}],
-    }
-  }
-},
-{
-  type: "line",
-  data: {
-    labels: FetalTimestamp,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: BpValue
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-        yAxes: [{ticks: {min: 50, max:220}}],
-    }
-  }
-},
-{
-  type: "line",
-  data: {
-    labels: FetalTimestamp,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: pulseValue
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 50, max:220}}],
-    }
-  }
-}
-);
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: 'Dataset 1',
+//       data: Utils.numbers(NUMBER_CFG),
+//       borderColor: Utils.CHART_COLORS.red,
+//       backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+//       yAxisID: 'y',
+//     },
+//     {
+//       label: 'Dataset 2',
+//       data: Utils.numbers(NUMBER_CFG),
+//       borderColor: Utils.CHART_COLORS.blue,
+//       backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+//       yAxisID: 'y1',
+//     }
+//   ]
+// };
+// const vitalData= {
+//     labels: FetalTimestamp,
+//     datasets: [
+//       {
+//       label: "Systolic",
+//       fill: false,
+//       lineTension: 0,
+//       backgroundColor: "rgba(0,0,255,1.0)",
+//       borderColor: "rgba(0,0,255,0.1)",
+//       data: systolicValues
+//     },
+//     {
+//       label: "Diastolic",
+//       fill: false,
+//       lineTension: 0,
+//       backgroundColor: "green",
+//       borderColor: "green",
+//       data: diastolicValues
+
+//     }
+//   ]
+//   }
+// new Chart("VitalChart", {
+//   type: 'line',
+//   data: vitalData,
+//   options: {
+//     responsive: true,
+//     interaction: {
+//       mode: 'index',
+//       intersect: false,
+//     },
+//     stacked: false,
+//     plugins: {
+//       title: {
+//         display: true,
+//         text: 'Chart.js Line Chart - Multi Axis'
+//       }
+//     },
+//     scales: {
+//       y: {
+//         type: 'linear',
+//         display: true,
+//         position: 'left',
+//       },
+//       y1: {
+//         type: 'linear',
+//         display: true,
+//         position: 'right',
+
+//         // grid line settings
+//         grid: {
+//           drawOnChartArea: false, // only want the grid lines for one axis to show up
+//         },
+//       },
+//     }
+//   },
+// });
         </script>
 
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
